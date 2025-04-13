@@ -1,10 +1,18 @@
-# 金融数据MCP
+# FinMCP
 
 ## 项目概述
+这是一个适合多维度分析的金融LLM系统（代码包含MCP，LLM需要自己调用），提供完整的搭建过程
 
-[沧海数据](https://tsanghi.com)是一个专业的金融数据API服务，提供全面的股票、指数、债券等金融市场数据。主要是提供按量付费，比较方便
+本项目基于：[沧海数据](https://tsanghi.com)是一个专业的金融数据API服务，提供全面的股票、指数、债券等金融市场数据
 
-本项目基于该API，并包含完整的服务端实现
+主要是提供按量付费，比较方便
+
+效果如下
+![image](img/QA_1.png)
+
+![iamge](img/QA_2.png)
+
+**该项目主要是agent方向一个练手项目，会尽量拓展新功能**
 
 ## 核心功能
 
@@ -16,26 +24,56 @@
 
 ## 快速开始
 
-### 安装依赖
+### 环境配置
 
 ```bash
-uv pip install -r requirements.txt
-```
+conda create -n finMCP python=3.11
 
-### 启动服务器
+conda activate finMCP
+
+pip install uv
+```
+### 服务器配置
 
 ```bash
-python server.py --transport fastapi --host 0.0.0.0 --port 8000
+git clone https://github.com/Ryenlvy/FinMCP.git
+
+cd FinMCP
 ```
 
-### 服务器启动选项
+### 启动
 
+```bash
+export FIN_API_TOKEN=your_api_token
+#填写沧海数据的api key
+
+bash start_server.sh
+```
+
+#### 服务器启动选项
+在start_server.sh中，可以修改启动选项
 - `--transport`：传输模式，支持`stdio`、`sse`或`fastapi`
 - `--host`：服务器绑定的主机地址
 - `--port`：服务器监听的端口
 
-## API示例
+### 前端配置
+本项目使用Cherry Studio，可以参考[Cherry Studio安装文档](https://docs.cherry-ai.com/cherry-studio/download)
 
+首先点击到`设置-MCP服务器`，右上角环境缺失 [教程连接](hhttps://docs.cherry-ai.com/advanced-basic/mcp/install)，成功后如下页面
+
+![image](./img/screenshot_cherrystudio.png)
+
+### 配置MCP服务器
+
+添加一个服务器
+
+![image](./img/Front_end_steps.png)
+
+正常配置后会如下页面,包含所有tools
+![image](./img/tool_list.png)
+
+
+## API示例
 ### 获取股票实时行情
 
 ```python
@@ -70,13 +108,17 @@ async def get_stock_company_info(exchange_code: str, ticker: str):
         return response.json()
 ```
 
-## 文档爬虫系统
+## 文档爬虫 & 工具生成
+如果只是为了使用该FinMCP，以上就足够了，如果想要自己编写tools，可以参考以下内容
 
-项目包含一个专门的文档爬虫系统，用于自动化获取API文档并生成相应的工具函数：
+因为沧海数据主要是使用request库直接调用，并没有专门的Python SDK，因此我选择一个方便、自动化的方法来操作和编写tools,包含以下两个文件
 
 - `crawl_tsanghi_docs.py`：爬取沧海API文档
 - `code_creater.py`：基于文档自动生成工具函数代码
 
+使用`code_creater.py` 调用qwen-max模型生成工具函数，最后一起复制到`tools.py`中
+
+最后tools.py中包含所有工具函数（文档里有的就有）
 ## 项目结构
 
 ```
