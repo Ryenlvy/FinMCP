@@ -105,16 +105,16 @@ async def get_stock_company_info(exchange_code: str, ticker: str):
 
 ## 🛠️ 自定义工具函数开发指南
 
-如果你想基于沧海数据自定义开发工具函数，可使用以下自动化流程：
+如果你只想搭建本项目，那么以上的内容就足够了，以下内容给出一个流程化tools生成的参考思路：
 
 - `crawl_tsanghi_docs.py`：爬取沧海 API 文档
 - `code_creater.py`：基于文档调用 `qwen-max` 自动生成工具函数代码
 
 ### 工具生成步骤：
 
-1. 运行 `crawl_tsanghi_docs.py` 获取所有接口说明  
-2. 使用 `code_creater.py` 生成 Python 函数  
-3. 将生成的函数统一放入 `tools.py`
+1. 运行 `crawl_tsanghi_docs.py` 爬取所有接口说明，每个功能保存为一个json  
+2. 使用 `code_creater.py` 将json和server.py,tools.py一起丢给qwen-max，生成 Python 函数，一个json生成一个函数
+3. 最后将生成的函数统一放入 `tools.py` 而server.py 只要 from tools import * 即可，非常的方便快捷、自动化程度很高
 
 ---
 
