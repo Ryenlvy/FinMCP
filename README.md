@@ -16,10 +16,16 @@
 
 ## 快速开始
 
-### 启动
+### 安装依赖
 
 ```bash
-uv run server.py --transport fastapi --host 0.0.0.0 --port 8000
+uv pip install -r requirements.txt
+```
+
+### 启动服务器
+
+```bash
+python server.py --transport fastapi --host 0.0.0.0 --port 8000
 ```
 
 ### 服务器启动选项

@@ -10,7 +10,7 @@ import httpx
 logger = logging.getLogger("fin-tools")
 
 # 沧海 API 配置
-FIN_API_TOKEN = "your_api_token"
+FIN_API_TOKEN = os.environ.get("FIN_API_TOKEN", "your_api_token")
 FIN_API_BASE = "https://api.tsanghi.com/fin"
 
 # 辅助函数
@@ -252,8 +252,8 @@ async def get_forex_yearly_realtime(ticker: str, start_date: str = None, end_dat
     
     Args:
         ticker (str): 外汇代码，例如 "USDCNY"（美元人民币），必选
-        start_date (str, optional): 起始日期，格式“yyyy-mm-dd”，可选
-        end_date (str, optional): 终止日期，格式“yyyy-mm-dd”，可选
+        start_date (str, optional): 起始日期，格式"yyyy-mm-dd"，可选
+        end_date (str, optional): 终止日期，格式"yyyy-mm-dd"，可选
         limit (int, optional): 输出数量，默认：1，可选
         fmt (str, optional): 输出格式，支持json和csv两种标准输出格式，默认：json，可选
         columns (str, optional): 输出字段，支持自定义输出，多个字段以半角逗号分隔，可选
@@ -264,7 +264,7 @@ async def get_forex_yearly_realtime(ticker: str, start_date: str = None, end_dat
             - message (str): 成功或错误信息
             - data (Dict): 外汇实时年线数据，包含以下字段:
                 - ticker (str): 外汇代码
-                - date (str): 日期，格式“yyyy-mm-dd”
+                - date (str): 日期，格式"yyyy-mm-dd"
                 - open (float): 开盘价
                 - high (float): 最高价
                 - low (float): 最低价
@@ -523,8 +523,8 @@ async def get_forex_15min_realtime(ticker: str, start_date: str = None, end_date
     
     Args:
         ticker (str): 外汇代码，例如 "USDCNY"（美元人民币），必选
-        start_date (str, optional): 起始日期，格式“yyyy-mm-dd”或“yyyy-mm-dd hh:mm:ss”，默认：最早日期
-        end_date (str, optional): 终止日期，格式“yyyy-mm-dd”或“yyyy-mm-dd hh:mm:ss”，默认：最新日期
+        start_date (str, optional): 起始日期，格式"yyyy-mm-dd"或"yyyy-mm-dd hh:mm:ss"，默认：最早日期
+        end_date (str, optional): 终止日期，格式"yyyy-mm-dd"或"yyyy-mm-dd hh:mm:ss"，默认：最新日期
         limit (int, optional): 输出数量，默认：1
         fmt (str, optional): 输出格式，支持json和csv两种标准输出格式，默认：json
         columns (str, optional): 输出字段，支持自定义输出，多个字段以半角逗号分隔
@@ -535,7 +535,7 @@ async def get_forex_15min_realtime(ticker: str, start_date: str = None, end_date
             - message (str): 成功或错误信息
             - data (Dict): 外汇数据字典，包含以下字段:
                 - ticker (str): 外汇代码
-                - date (str): 日期时间（UTC时间），格式“yyyy-mm-dd hh:mm:ss”
+                - date (str): 日期时间（UTC时间），格式"yyyy-mm-dd hh:mm:ss"
                 - open (float): 开盘价
                 - high (float): 最高价
                 - low (float): 最低价
@@ -958,8 +958,8 @@ async def get_forex_60min_realtime(ticker: str, start_date: str = None, end_date
     
     Args:
         ticker (str): 外汇代码，例如 "USDCNY"（美元人民币），必选
-        start_date (str, optional): 起始日期，格式“yyyy-mm-dd”或“yyyy-mm-dd hh:mm:ss”，默认：最早日期
-        end_date (str, optional): 终止日期，格式“yyyy-mm-dd”或“yyyy-mm-dd hh:mm:ss”，默认：最新日期
+        start_date (str, optional): 起始日期，格式"yyyy-mm-dd"或"yyyy-mm-dd hh:mm:ss"，默认：最早日期
+        end_date (str, optional): 终止日期，格式"yyyy-mm-dd"或"yyyy-mm-dd hh:mm:ss"，默认：最新日期
         limit (int, optional): 输出数量，默认：1
         fmt (str, optional): 输出格式，支持json和csv两种标准输出格式，默认：json
         columns (str, optional): 输出字段，支持自定义输出，多个字段以半角逗号分隔
@@ -970,7 +970,7 @@ async def get_forex_60min_realtime(ticker: str, start_date: str = None, end_date
             - message (str): 成功或错误信息
             - data (Dict): 外汇60分钟实时行情数据，包含以下字段:
                 - ticker (str): 外汇代码
-                - date (str): 日期时间（UTC时间），格式“yyyy-mm-dd hh:mm:ss”
+                - date (str): 日期时间（UTC时间），格式"yyyy-mm-dd hh:mm:ss"
                 - open (float): 开盘价
                 - high (float): 最高价
                 - low (float): 最低价
@@ -1393,8 +1393,8 @@ async def get_forex_monthly_realtime(ticker: str, start_date: str = None, end_da
     
     Args:
         ticker (str): 外汇代码，例如 USDCNY（美元人民币），必选
-        start_date (str, optional): 起始日期，格式“yyyy-mm-dd”，可选
-        end_date (str, optional): 终止日期，格式“yyyy-mm-dd”，可选
+        start_date (str, optional): 起始日期，格式"yyyy-mm-dd"，可选
+        end_date (str, optional): 终止日期，格式"yyyy-mm-dd"，可选
         limit (int, optional): 输出数量，默认：1，可选
         fmt (str, optional): 输出格式，支持json和csv两种标准输出格式，默认：json，可选
         columns (str, optional): 输出字段，支持自定义输出，多个字段以半角逗号分隔，可选
@@ -1405,7 +1405,7 @@ async def get_forex_monthly_realtime(ticker: str, start_date: str = None, end_da
             - message (str): 成功或错误信息
             - data (Dict): 外汇实时月线数据，包含以下字段:
                 - ticker (str): 外汇代码
-                - date (str): 日期，格式“yyyy-mm-dd”
+                - date (str): 日期，格式"yyyy-mm-dd"
                 - open (float): 开盘价
                 - high (float): 最高价
                 - low (float): 最低价
@@ -1686,8 +1686,8 @@ async def get_historical_cash_flow_annual(exchange_code: str, ticker: str, start
     Args:
         exchange_code (str): 交易所代码，例如 "XSHG"（上交所）、"XSHE"（深交所）、"XNAS"（纳斯达克），必选
         ticker (str): 股票代码，例如 "600519"（贵州茅台）、"AAPL"（苹果），必选
-        start_date (str, optional): 起始日期（报告期），格式“yyyy-mm-dd”，默认：最早日期
-        end_date (str, optional): 终止日期（报告期），格式“yyyy-mm-dd”，默认：最新日期
+        start_date (str, optional): 起始日期（报告期），格式"yyyy-mm-dd"，默认：最早日期
+        end_date (str, optional): 终止日期（报告期），格式"yyyy-mm-dd"，默认：最新日期
         limit (int, optional): 输出数量
         fmt (str, optional): 输出格式，支持 "json" 和 "csv" 两种，默认：json
         columns (str, optional): 输出字段，支持自定义输出，多个字段以半角逗号分隔
@@ -1699,7 +1699,7 @@ async def get_historical_cash_flow_annual(exchange_code: str, ticker: str, start
             - message (str): 成功或错误信息
             - data (Dict): 财务数据，包含以下字段:
                 - ticker (str): 股票代码
-                - report_date (str): 报告期，格式“yyyy-mm-dd”
+                - report_date (str): 报告期，格式"yyyy-mm-dd"
                 - currency_code (str): 币种代码
                 - net_cash_flow_operating (float): 经营活动产生的现金流量净额
                 - net_cash_flow_invest (float): 投资活动产生的现金流量净额
@@ -1759,7 +1759,7 @@ async def get_index_realtime_data(country_code: str, ticker: str, fmt: str = "js
             - message (str): 成功或错误信息
             - data (Dict): 实时行情数据，包含以下字段:
                 - ticker (str): 股票代码
-                - date (str): 日期时间，格式“yyyy-mm-dd hh:mm:ss”
+                - date (str): 日期时间，格式"yyyy-mm-dd hh:mm:ss"
                 - open (float): 开盘价
                 - high (float): 最高价
                 - low (float): 最低价
@@ -1943,7 +1943,7 @@ async def get_index_60min_realtime(country_code: str, ticker: str, limit: int = 
             - message (str): 成功或错误信息
             - data (Dict): 实时60分钟行情数据，包含以下字段:
                 - ticker (str): 指数代码
-                - date (str): 日期时间，格式“yyyy-mm-dd hh:mm:ss”
+                - date (str): 日期时间，格式"yyyy-mm-dd hh:mm:ss"
                 - open (float): 开盘价
                 - high (float): 最高价
                 - low (float): 最低价
@@ -2361,7 +2361,7 @@ async def get_index_realtime_30min(country_code: str, ticker: str, limit: int = 
             - message (str): 成功或错误信息
             - data (Dict): 指数日内行情实时30分钟数据，包含以下字段:
                 - ticker (str): 指数代码
-                - date (str): 日期时间，格式“yyyy-mm-dd hh:mm:ss”
+                - date (str): 日期时间，格式"yyyy-mm-dd hh:mm:ss"
                 - open (float): 开盘价
                 - high (float): 最高价
                 - low (float): 最低价
@@ -2422,8 +2422,8 @@ async def get_historical_income_statement_annual(
     Args:
         exchange_code (str): 交易所代码，例如 "XSHG"（上交所）、"XSHE"（深交所）、"XNAS"（纳斯达克），必选
         ticker (str): 股票代码，例如 "600519"（贵州茅台）、"AAPL"（苹果），必选
-        start_date (str): 起始日期（报告期），格式“yyyy-mm-dd”，默认：最早日期，可选
-        end_date (str): 终止日期（报告期），格式“yyyy-mm-dd”，默认：最新日期，可选
+        start_date (str): 起始日期（报告期），格式"yyyy-mm-dd"，默认：最早日期，可选
+        end_date (str): 终止日期（报告期），格式"yyyy-mm-dd"，默认：最新日期，可选
         limit (int): 输出数量，可选
         fmt (str): 输出格式，支持 "json" 和 "csv" 两种标准输出格式，默认：json，可选
         columns (str): 输出字段，支持自定义输出，多个字段以半角逗号分隔，可选
@@ -2566,8 +2566,8 @@ async def get_historical_balance_sheet_quarterly(
     Args:
         exchange_code (str): 交易所代码，例如 "XSHG"（上交所）、"XSHE"（深交所）、"XNAS"（纳斯达克），必选
         ticker (str): 股票代码，例如 "600519"（贵州茅台）、"AAPL"（苹果），必选
-        start_date (str, optional): 起始日期（报告期）。格式“yyyy-mm-dd”，默认：最早日期
-        end_date (str, optional): 终止日期（报告期）。格式“yyyy-mm-dd”，默认：最新日期
+        start_date (str, optional): 起始日期（报告期）。格式"yyyy-mm-dd"，默认：最早日期
+        end_date (str, optional): 终止日期（报告期）。格式"yyyy-mm-dd"，默认：最新日期
         limit (int, optional): 输出数量
         fmt (str, optional): 输出格式。支持json和csv两种标准输出格式，默认：json
         columns (str, optional): 输出字段。支持自定义输出，多个字段以半角逗号分隔
@@ -2579,7 +2579,7 @@ async def get_historical_balance_sheet_quarterly(
             - message (str): 成功或错误信息
             - data (Dict): 财务报表数据，包含多个字段如:
                 - ticker (str): 股票代码
-                - report_date (str): 报告期。格式“yyyy-mm-dd”
+                - report_date (str): 报告期。格式"yyyy-mm-dd"
                 - currency_code (str): 币种代码
                 - total_current_assets (float): 流动资产合计
                 - cash_equivalents (float): 货币资金
@@ -2735,8 +2735,8 @@ async def get_forex_5min_realtime(ticker: str, start_date: str = None, end_date:
     
     Args:
         ticker (str): 外汇代码，例如 "USDCNY"（美元人民币），必选
-        start_date (str, optional): 起始日期，格式“yyyy-mm-dd”或“yyyy-mm-dd hh:mm:ss”，默认：最早日期
-        end_date (str, optional): 终止日期，格式“yyyy-mm-dd”或“yyyy-mm-dd hh:mm:ss”，默认：最新日期
+        start_date (str, optional): 起始日期，格式"yyyy-mm-dd"或"yyyy-mm-dd hh:mm:ss"，默认：最早日期
+        end_date (str, optional): 终止日期，格式"yyyy-mm-dd"或"yyyy-mm-dd hh:mm:ss"，默认：最新日期
         limit (int, optional): 输出数量，默认：1
         fmt (str, optional): 输出格式，支持json和csv两种标准输出格式，默认：json
         columns (str, optional): 输出字段，支持自定义输出，多个字段以半角逗号分隔
@@ -2747,7 +2747,7 @@ async def get_forex_5min_realtime(ticker: str, start_date: str = None, end_date:
             - message (str): 成功或错误信息
             - data (Dict): 外汇5分钟实时行情数据，包含以下字段:
                 - ticker (str): 外汇代码
-                - date (str): 日期时间（UTC时间），格式“yyyy-mm-dd hh:mm:ss”
+                - date (str): 日期时间（UTC时间），格式"yyyy-mm-dd hh:mm:ss"
                 - open (float): 开盘价
                 - high (float): 最高价
                 - low (float): 最低价
